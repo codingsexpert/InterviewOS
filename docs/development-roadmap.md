@@ -53,29 +53,23 @@ This document outlines the systematic, phased execution plan for **InterviewOS**
 
 ---
 
-### Phase 02 — Google OAuth and User Management
-- **Implementation:**
-  - NextAuth.js / Auth.js with Google Provider in frontend.
-  - Backend JWT verification middleware and user profile synchronization.
-  - PostgreSQL `users` table migrations.
-- **Integration:** OAuth token exchange and authenticated route guards.
-- **Testing:** Authentication flow tests, token expiration, and role validation.
-- **Documentation:** Update API specification with auth headers.
-- **Git Commit:** `feat(auth): implement Google OAuth and user profile management`.
+### Phase 02 — Google OAuth and User Management [DEFERRED]
+> **Status:** Deferred / Postponed by user decision. Core database tables and auth foundations exist, but authentication is bypassed in local development mode to accelerate feature building. Must be completed before production release.
 
 ---
 
-### Phase 03 — Resume and Job Description Processing
+### Phase 03 — Resume and Job Description Processing [COMPLETED — 2026-10-24]
 - **Implementation:**
-  - PDF file upload UI with drag-and-drop and progress bar.
-  - Backend PDF parsing service (`pypdf` / `pdfplumber`).
-  - S3 / R2 upload integration for storing resume assets.
-  - Gemini 1.5 Pro prompt to extract skills, experience levels, and project highlights.
-  - Job description parser for role requirements and seniority level.
-- **Integration:** End-to-end ingestion pipeline saving to `resumes` and `job_descriptions`.
-- **Testing:** Extraction precision tests with sample resumes and edge-case formats.
-- **Documentation:** Ingestion workflow and prompt catalog.
-- **Git Commit:** `feat(ingest): add resume parsing and job description extraction`.
+  - PDF file upload UI (`/interview/setup`) with drag-and-drop, progress spinner, file validation.
+  - Backend PDF parsing service (`pypdf`) with magic bytes validation (`%PDF-`), 5MB size limit, path traversal sanitization, and non-public disk storage.
+  - Scanned/image-only PDF detection (`scanned_no_text` status) without hallucinating text.
+  - Target job description normalization and word counting service.
+  - PostgreSQL persistence (`resumes` and `job_descriptions` tables) with UUID identifiers via Alembic migration `0003_resumes_and_jobs`.
+  - Phase 04 AI Question Planner handoff contract interface (`InterviewSetupContract`).
+- **Integration:** End-to-end ingestion pipeline saving to PostgreSQL and displaying live preview in Next.js UI.
+- **Testing:** 14 unit and integration tests covering valid uploads, corrupted headers, oversized files, scanned documents, encrypted files, and UUID retrieval (24/24 total backend tests passing).
+- **Documentation:** Ingestion workflow, database specifications, and architectural data flow.
+- **Git Commit:** `feat: implement resume and job description processing`.
 
 ---
 

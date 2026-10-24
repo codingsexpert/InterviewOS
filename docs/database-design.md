@@ -50,37 +50,36 @@ Core user identity table supporting Google OAuth authentication and role-based a
 
 ---
 
-### 2.2 `resumes`
-Stores candidate resume files and structured semantic extractions.
+### 2.2 `resumes` (Implemented in Phase 03 — Migration `0003_resumes_and_jobs`)
+Stores candidate resume files, safe storage references, and extracted text.
 
 | Column | Type | Constraints | Description |
 | :--- | :--- | :--- | :--- |
 | `id` | `UUID` | `PRIMARY KEY, DEFAULT gen_random_uuid()` | Unique resume record ID |
-| `user_id` | `UUID` | `NOT NULL, REFERENCES users(id) ON DELETE CASCADE, INDEX` | Owning candidate |
-| `file_name` | `VARCHAR(255)` | `NOT NULL` | Original uploaded PDF filename |
-| `s3_key` | `VARCHAR(512)` | `NOT NULL, UNIQUE` | Object storage object key/path |
-| `raw_text` | `TEXT` | `NULL` | Plaintext extracted from PDF |
-| `parsed_skills` | `JSONB` | `NOT NULL, DEFAULT '[]'::jsonb` | Extracted technical and soft skills |
-| `parsed_experience` | `JSONB` | `NOT NULL, DEFAULT '[]'::jsonb` | Parsed employment history and projects |
-| `parsed_education` | `JSONB` | `NOT NULL, DEFAULT '[]'::jsonb` | Parsed degree and educational background |
+| `original_filename` | `VARCHAR(255)` | `NOT NULL` | Original uploaded PDF filename |
+| `storage_reference` | `VARCHAR(512)` | `NOT NULL` | Local/cloud storage path relative to upload root |
+| `extracted_text` | `TEXT` | `NULL` | Plaintext extracted from PDF via `pypdf` |
+| `processing_status` | `VARCHAR(50)` | `NOT NULL, DEFAULT 'completed', INDEX` | `completed`, `scanned_no_text`, `failed` |
+| `file_size` | `INTEGER` | `NOT NULL` | Upload file size in bytes |
+| `page_count` | `INTEGER` | `NULL, DEFAULT 0` | Total document pages |
+| `word_count` | `INTEGER` | `NULL, DEFAULT 0` | Extracted word count |
+| `user_id` | `UUID` | `NULL, INDEX` | Linked candidate user ID (ready for Phase 02 OAuth) |
 | `created_at` | `TIMESTAMPTZ` | `NOT NULL, DEFAULT NOW()` | Upload timestamp |
 | `updated_at` | `TIMESTAMPTZ` | `NOT NULL, DEFAULT NOW()` | Update timestamp |
 
 ---
 
-### 2.3 `job_descriptions`
+### 2.3 `job_descriptions` (Implemented in Phase 03 — Migration `0003_resumes_and_jobs`)
 Target roles and requirements against which mock interviews are calibrated.
 
 | Column | Type | Constraints | Description |
 | :--- | :--- | :--- | :--- |
 | `id` | `UUID` | `PRIMARY KEY, DEFAULT gen_random_uuid()` | Unique job description ID |
-| `user_id` | `UUID` | `NOT NULL, REFERENCES users(id) ON DELETE CASCADE, INDEX` | Creator / candidate ID |
-| `role_title` | `VARCHAR(255)` | `NOT NULL, INDEX` | Job title (e.g. Senior Backend Engineer) |
+| `title` | `VARCHAR(255)` | `NOT NULL, INDEX` | Job title (e.g. Senior Backend Engineer) |
 | `company_name` | `VARCHAR(255)` | `NULL` | Target company (e.g. Google, Stripe) |
-| `raw_text` | `TEXT` | `NOT NULL` | Full text of job description |
-| `required_skills` | `JSONB` | `NOT NULL, DEFAULT '[]'::jsonb` | Mandatory skills extracted by Gemini |
-| `preferred_skills` | `JSONB` | `NOT NULL, DEFAULT '[]'::jsonb` | Optional / nice-to-have skills |
-| `seniority_level` | `VARCHAR(50)` | `NOT NULL, DEFAULT 'mid'` | `intern`, `junior`, `mid`, `senior`, `staff` |
+| `description_text` | `TEXT` | `NOT NULL` | Normalized text of job description |
+| `word_count` | `INTEGER` | `NULL, DEFAULT 0` | Normalized word count |
+| `user_id` | `UUID` | `NULL, INDEX` | Linked candidate user ID (ready for Phase 02 OAuth) |
 | `created_at` | `TIMESTAMPTZ` | `NOT NULL, DEFAULT NOW()` | Creation timestamp |
 | `updated_at` | `TIMESTAMPTZ` | `NOT NULL, DEFAULT NOW()` | Update timestamp |
 

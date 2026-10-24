@@ -26,14 +26,18 @@ export function Navbar() {
               <span className="font-semibold text-base tracking-tight text-neutral-950 dark:text-white">
                 InterviewOS
               </span>
-              <span className="text-[10px] uppercase font-mono tracking-wider text-neutral-500">
-                Phase 02 Active
+              <span className="text-[10px] uppercase font-mono tracking-wider text-blue-500 font-semibold">
+                Phase 03 Active
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-600 dark:text-neutral-400">
+            <Link href="/interview/setup" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline transition-colors flex items-center gap-1.5">
+              <span>Setup Interview</span>
+              <span className="text-[9px] px-1.5 py-0.2 rounded bg-blue-500/10 border border-blue-500/20 uppercase font-mono">New</span>
+            </Link>
             <Link href="/#overview" className="hover:text-neutral-950 dark:hover:text-white transition-colors">
               Overview
             </Link>

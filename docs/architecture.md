@@ -177,10 +177,27 @@ flowchart LR
         BlueprintGen --> PlannedQuestions["Tailored Interview Blueprint\n(Core, Behavioral, Technical & System Design)"]
     end
 
-    subgraph Persistence["4. Storage"]
+    subgraph Persistence["4. Storage & Contract Interface"]
         PlannedQuestions --> DB[("PostgreSQL DB (Interviews & Questions)")]
     end
 ```
+
+### 4.1 Phase 03 Implementation & AI Contract Handoff
+In Phase 03, the document ingestion and normalization foundation was delivered:
+- **Resume Upload (`POST /api/v1/resumes`)**:
+  - Binary `%PDF-` magic bytes header validation.
+  - Safe sanitized storage in `backend/storage/uploads/` outside web root.
+  - Digital text extraction, page counting, and word counting using `pypdf`.
+  - Scanned/image-only PDF detection returning `scanned_no_text` without hallucination.
+  - PostgreSQL persistence with UUID keys.
+- **Job Description (`POST /api/v1/job-descriptions`)**:
+  - Validation of minimum length (>= 30 characters) and maximum length (<= 50,000 characters).
+  - Normalization of irregular whitespace and paragraph breaks.
+  - PostgreSQL persistence with UUID keys.
+- **Phase 04 AI Contract (`InterviewSetupContract`)**:
+  - Data contract payload (`resume_id`, `extracted_resume_text`, `job_description_id`, `normalized_job_description_text`, `readiness_status`) prepared for consumption by Gemini Question Planner in Phase 04.
+- **Safe Development Guard**:
+  - `check_dev_mode_guard` restricts unauthenticated document upload in production mode until Phase 02 Google OAuth is integrated.
 
 ---
 

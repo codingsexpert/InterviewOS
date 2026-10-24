@@ -29,6 +29,11 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3000",
     ]
 
+    # File Upload & Storage Configuration
+    UPLOAD_DIR: str = "storage/uploads"
+    MAX_UPLOAD_SIZE_BYTES: int = 5 * 1024 * 1024  # 5 MB
+    ALLOWED_EXTENSIONS: List[str] = [".pdf"]
+
     # Database configuration
     DATABASE_URL: str | None = None
 

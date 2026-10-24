@@ -32,22 +32,19 @@ export function Hero() {
         {/* CTA Actions */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            href="#architecture"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-medium text-sm text-white bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100 shadow-sm transition-all"
+            href="/interview/setup"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-medium text-sm text-white bg-blue-600 hover:bg-blue-500 shadow-sm transition-all"
           >
-            <span>Explore Architecture</span>
+            <span>Start Interview Setup</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
 
-          <button
-            disabled
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-medium text-sm text-neutral-400 dark:text-neutral-500 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 cursor-not-allowed"
+          <Link
+            href="#architecture"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-medium text-sm text-neutral-900 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 transition-all"
           >
-            <span>Start Mock Interview</span>
-            <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
-              Coming in Phase 06
-            </span>
-          </button>
+            <span>Explore Architecture</span>
+          </Link>
         </div>
 
         {/* Metrics & Architecture Preview Bar */}
