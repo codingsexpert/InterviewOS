@@ -84,9 +84,9 @@ interview-os/
 
 ## 🗺️ Development Phases Summary
 
-- **Phase 00:** Project Initialization & Architecture Design *(Current)*
-- **Phase 01:** Core Foundations (Next.js, FastAPI, Database Setup)
-- **Phase 02:** Authentication & User Management (Google OAuth)
+- **Phase 00:** Project Initialization & Architecture Design (COMPLETED)
+- **Phase 01:** Full-Stack Foundation (Next.js, FastAPI, PostgreSQL, Alembic) (COMPLETED — see [docs/setup-guide.md](docs/setup-guide.md))
+- **Phase 02:** Authentication & User Management (Google OAuth) (LOCKED)
 - **Phase 03:** Resume & Job Description Processing
 - **Phase 04:** Gemini Question Planning Engine
 - **Phase 05:** Voice Pipeline (Sarvam STT + Fish Audio TTS)
