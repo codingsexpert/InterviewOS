@@ -86,8 +86,8 @@ interview-os/
 
 - **Phase 00:** Project Initialization & Architecture Design (COMPLETED)
 - **Phase 01:** Full-Stack Foundation (Next.js, FastAPI, PostgreSQL, Alembic) (COMPLETED — see [docs/setup-guide.md](docs/setup-guide.md))
-- **Phase 02:** Authentication & User Management (Google OAuth) (LOCKED)
-- **Phase 03:** Resume & Job Description Processing
+- **Phase 02:** Authentication & User Management (Google OAuth) (COMPLETED)
+- **Phase 03:** Resume & Job Description Processing (LOCKED)
 - **Phase 04:** Gemini Question Planning Engine
 - **Phase 05:** Voice Pipeline (Sarvam STT + Fish Audio TTS)
 - **Phase 06:** Adaptive LangGraph Interviewer

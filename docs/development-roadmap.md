@@ -15,8 +15,8 @@ This document outlines the systematic, phased execution plan for **InterviewOS**
 | :---: | :--- | :--- | :---: |
 | **00** | Architecture & Repo Init | Project structure, architecture, DB design, roadmap | **COMPLETED** |
 | **01** | Full-Stack Foundation | Running Next.js, FastAPI, async PostgreSQL, Alembic | **COMPLETED** |
-| **02** | Google OAuth & Users | User authentication, session management, profiles | LOCKED |
-| **03** | Resume & JD Processing | PDF parsing, skill extraction, role alignment | UPCOMING |
+| **02** | Google OAuth & Users | User authentication, session management, profiles | **COMPLETED** |
+| **03** | Resume & JD Processing | PDF parsing, skill extraction, role alignment | LOCKED |
 | **04** | Gemini Question Planner | Dynamic question blueprints, difficulty calibrator | UPCOMING |
 | **05** | Real-Time Voice Pipeline | Sarvam STT & Fish Audio TTS (`s2.1-pro-free`) integration | UPCOMING |
 | **06** | Adaptive LangGraph Agent | Multi-turn interview graph, dynamic follow-up engine | UPCOMING |

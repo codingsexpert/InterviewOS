@@ -1,7 +1,7 @@
 """Application Configuration module using Pydantic Settings v2."""
 
-from typing import List, Union
-from pydantic import AnyHttpUrl, field_validator
+from typing import List
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -31,6 +31,13 @@ class Settings(BaseSettings):
 
     # Database configuration
     DATABASE_URL: str | None = None
+
+    # Authentication & JWT Security
+    AUTH_SECRET: str = "interviewos-dev-auth-secret-change-in-production-min-32-chars"
+    JWT_ALGORITHM: str = "HS256"
+    JWT_ISSUER: str = "interviewos-auth"
+    JWT_AUDIENCE: str = "interviewos-api"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440  # 24 hours
 
     @field_validator("DATABASE_URL", mode="before")
     @classmethod
