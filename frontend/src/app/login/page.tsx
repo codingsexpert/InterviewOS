@@ -2,11 +2,21 @@
 
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { Terminal, Shield, ArrowLeft } from "lucide-react";
+import { Terminal, Shield, ArrowLeft, ArrowRight, UserCheck } from "lucide-react";
 import { useState } from "react";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isDemoLoading, setIsDemoLoading] = useState(false);
+
+  const handleDemoLogin = async () => {
+    try {
+      setIsDemoLoading(true);
+      await signIn("demo", { callbackUrl: "/dashboard" });
+    } catch {
+      setIsDemoLoading(false);
+    }
+  };
 
   const handleGoogleLogin = async () => {
     try {
@@ -43,13 +53,33 @@ export default function LoginPage() {
           </div>
 
           <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
-            Authenticate using your verified Google account. First-time sign in will automatically provision your candidate profile and mock interview workspace.
+            Choose an option to enter your mock interview workspace on Mac, iPhone, or iPad:
           </p>
+
+          {/* Quick Demo Access Button */}
+          <button
+            onClick={handleDemoLogin}
+            disabled={isDemoLoading || isLoading}
+            className="w-full flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100 font-medium text-sm transition-all shadow-sm mb-3 disabled:opacity-50"
+          >
+            <UserCheck className="w-4 h-4" />
+            <span>{isDemoLoading ? "Opening Workspace..." : "Enter Workspace (Demo Candidate)"}</span>
+            <ArrowRight className="w-4 h-4 ml-auto" />
+          </button>
+
+          <div className="relative my-4">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-neutral-200 dark:border-neutral-800" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase font-mono">
+              <span className="bg-white dark:bg-neutral-900 px-2 text-neutral-400">Or continue with</span>
+            </div>
+          </div>
 
           {/* Google Sign-in Button */}
           <button
             onClick={handleGoogleLogin}
-            disabled={isLoading}
+            disabled={isLoading || isDemoLoading}
             className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-700 font-medium text-sm transition-all shadow-sm disabled:opacity-50"
           >
             <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
@@ -70,7 +100,7 @@ export default function LoginPage() {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
               />
             </svg>
-            <span>{isLoading ? "Redirecting to Google..." : "Continue with Google"}</span>
+            <span>{isLoading ? "Redirecting to Google..." : "Google Account (Live Auth)"}</span>
           </button>
 
           {/* Security Notice */}
